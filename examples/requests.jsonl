@@ -1,0 +1,6 @@
+{"occurred_at":"2026-09-18T08:02:00Z","method":"GET","url":"https://example.test/pricing","headers":{"user-agent":"Mozilla/5.0 compatible; ChatGPT-User/1.0","x-vercel-id":"demo-1"}}
+{"occurred_at":"2026-09-18T08:03:00Z","method":"GET","url":"https://example.test/compare/alpha","headers":{"user-agent":"Mozilla/5.0; ExaSearchBot/1.0","x-vercel-id":"demo-2"}}
+{"occurred_at":"2026-09-18T08:04:00Z","method":"GET","url":"https://example.test/docs","headers":{"user-agent":"ResearchCrawler/0.2","x-vercel-id":"demo-3"}}
+{"occurred_at":"2026-09-18T08:05:00Z","method":"GET","url":"https://example.test/pricing?email=private@example.test","headers":{"user-agent":"Mozilla/5.0 Safari/605.1","x-forwarded-for":"192.0.2.10","x-vercel-id":"demo-4"}}
+{"occurred_at":"2026-09-18T08:06:00Z","method":"GET","url":"https://example.test/assets/card.png","headers":{"user-agent":"GPTBot/1.2","x-vercel-id":"demo-5"}}
+{"occurred_at":"2026-09-18T08:07:00Z","method":"GET","url":"https://example.test/blog","headers":{"user-agent":"facebookexternalhit/1.1","x-vercel-id":"demo-6"}}

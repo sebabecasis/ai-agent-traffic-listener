@@ -1,0 +1,15 @@
+{
+  "name": "ai-agent-traffic-listener",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Privacy-conscious server-side measurement of AI agent traffic.",
+  "scripts": {
+    "demo": "node src/cli.mjs --input examples/requests.jsonl",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

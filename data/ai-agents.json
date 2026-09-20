@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "botShapePattern": "bot|crawler|spider",
+  "ignorePatterns": [
+    "facebookexternalhit",
+    "AuthenticationServicesAgent",
+    "Googlebot",
+    "bingbot",
+    "Slackbot",
+    "Discordbot"
+  ],
+  "agents": [
+    {"name": "GPTBot", "pattern": "GPTBot", "vendor": "OpenAI", "kind": "training"},
+    {"name": "ChatGPT-User", "pattern": "ChatGPT-User", "vendor": "OpenAI", "kind": "agent"},
+    {"name": "OAI-SearchBot", "pattern": "OAI-SearchBot", "vendor": "OpenAI", "kind": "search"},
+    {"name": "ClaudeBot", "pattern": "ClaudeBot", "vendor": "Anthropic", "kind": "training"},
+    {"name": "Claude-User", "pattern": "Claude-User", "vendor": "Anthropic", "kind": "agent"},
+    {"name": "Claude-SearchBot", "pattern": "Claude-SearchBot", "vendor": "Anthropic", "kind": "search"},
+    {"name": "anthropic-ai", "pattern": "anthropic-ai", "vendor": "Anthropic", "kind": "training"},
+    {"name": "PerplexityBot", "pattern": "PerplexityBot", "vendor": "Perplexity", "kind": "search"},
+    {"name": "Perplexity-User", "pattern": "Perplexity-User", "vendor": "Perplexity", "kind": "agent"},
+    {"name": "Google-Extended", "pattern": "Google-Extended", "vendor": "Google", "kind": "training"},
+    {"name": "GoogleOther", "pattern": "GoogleOther", "vendor": "Google", "kind": "search"},
+    {"name": "Google-CloudVertexBot", "pattern": "Google-CloudVertexBot", "vendor": "Google", "kind": "agent"},
+    {"name": "Bytespider", "pattern": "Bytespider", "vendor": "ByteDance", "kind": "training"},
+    {"name": "CCBot", "pattern": "CCBot", "vendor": "Common Crawl", "kind": "training"},
+    {"name": "cohere-ai", "pattern": "cohere-ai", "vendor": "Cohere", "kind": "training"},
+    {"name": "Amazonbot", "pattern": "Amazonbot", "vendor": "Amazon", "kind": "search"},
+    {"name": "Applebot-Extended", "pattern": "Applebot-Extended", "vendor": "Apple", "kind": "training"},
+    {"name": "Meta-ExternalAgent", "pattern": "meta-externalagent", "vendor": "Meta", "kind": "agent"},
+    {"name": "Meta-ExternalFetcher", "pattern": "meta-externalfetcher", "vendor": "Meta", "kind": "agent"},
+    {"name": "meta-webindexer", "pattern": "meta-webindexer", "vendor": "Meta", "kind": "training"},
+    {"name": "ExaSearchBot", "pattern": "ExaSearchBot", "vendor": "Exa", "kind": "search"},
+    {"name": "Reflectionbot", "pattern": "Reflectionbot", "vendor": "Reflection AI", "kind": "training"},
+    {"name": "LinkupBot", "pattern": "LinkupBot", "vendor": "Linkup", "kind": "search"},
+    {"name": "AzureAI-SearchBot", "pattern": "AzureAI-SearchBot", "vendor": "Microsoft", "kind": "search"},
+    {"name": "DesearchBot", "pattern": "DesearchBot", "vendor": "Desearch", "kind": "search"},
+    {"name": "AIWebIndex", "pattern": "AIWebIndex", "vendor": "AIWebIndex", "kind": "training"},
+    {"name": "taste-research-crawler", "pattern": "taste-research-crawler", "vendor": "Taste", "kind": "training"},
+    {"name": "MathPicDatasetCrawler", "pattern": "MathPicDatasetCrawler", "vendor": "Mathpix", "kind": "training"},
+    {"name": "YouBot", "pattern": "YouBot", "vendor": "You.com", "kind": "search"}
+  ]
+}
