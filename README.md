@@ -1,5 +1,7 @@
 # AI Agent Traffic Listener
 
+For agent-assisted operation, start with [AGENTS.md](AGENTS.md). Claude Code loads the same guide through [CLAUDE.md](CLAUDE.md).
+
 Measure how AI agents interact with a website without turning human browsing into a new tracking dataset.
 
 ## What is implemented
