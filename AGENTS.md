@@ -1,29 +1,30 @@
 # Operating AI Agent Traffic Listener
 
-Read `README.md` and `docs/architecture.md`. This package classifies incoming request user agents, discards ordinary browser-shaped traffic, builds limited event records and reports by agent/vendor/purpose/page. It includes a Supabase writer and a Next.js proxy example; it is not itself a deployed website or analytics dashboard.
+Read README.md and docs/architecture.md. Node.js 20+, no runtime dependencies. This package classifies requests, discards ordinary browser-shaped traffic, writes limited hit records and reports visits. It is not a hosted website or an LLM-answer visibility tracker.
 
-## Start with the fixture
+## Workflow
 
-From the root, with Node.js 20+ (no runtime packages needed):
+1. Establish the application, environment, authorized deployment/analysis and reporting window.
+2. Start offline: node src/cli.mjs --input examples/requests.jsonl; node --test.
+3. Adapt examples/next-proxy.ts to the host's existing proxy behavior. It lazily creates the writer and isolates missing configuration/writer failures, logging a generic once-per-instance warning. Keep the asynchronous host lifecycle hook.
+4. For authorized storage apply sql/agent_hits.sql, configure AGENT_HITS_URL and AGENT_HITS_ANON_KEY. This credential is insert-only; never widen anonymous read access merely to make reporting work.
+5. Verify known/unknown-agent inserts, normal-traffic exclusion and failure handling. User-agent labels are spoofable; do not use them as authentication.
+6. Report existing JSONL hits with --hits, or use --supabase --from ISO --to ISO with AGENT_HITS_REPORT_KEY in a trusted server-side environment. Use a dedicated least-privilege reporting credential where available; never expose a service credential in browser code.
+7. Explain counts, report window and unknown-agent review queue. Distinguish fixture output from actual collected traffic.
+
+## Commands
 
 ```bash
 node src/cli.mjs --input examples/requests.jsonl
+node src/cli.mjs --hits /private/path/hits.jsonl
+node src/cli.mjs --supabase --from 2026-09-01T00:00:00Z --to 2026-09-08T00:00:00Z
 node --test
 ```
 
-The CLI reads request JSONL and prints `{report, hits}`; it does not write to Supabase. Check that known agents and unknown bot-shaped requests are captured, ordinary browser traffic is omitted, and IP/query-string fields do not enter the hit records. Unknown agents remain nullable for later review.
+Choose one input mode. Remote reports page through [from,to) ordered by timestamp and database id. Failure or the pagination cap returns an error instead of a silently partial report. Narrow the window if the cap is reached. Use a completed historical window to minimize drift during offset pagination; this is not a transactional snapshot.
 
-## Operating an integration
+## Contracts and limits
 
-1. Establish the application, environment, intended reporting window and whether work is local analysis or an authorized deployment.
-2. Map the host application's requests to `buildAgentHit`/`recordAgentHit`. Review `examples/next-proxy.ts` with the application's existing proxy behavior before adapting it. Keep recording asynchronous via the host's lifecycle API.
-3. For an authorized Supabase integration, apply `sql/agent_hits.sql` and configure `AGENT_HITS_URL` as the REST table endpoint plus `AGENT_HITS_ANON_KEY`. Never use a privileged reporting credential in browser code.
-4. Verify known-agent and unknown-agent inserts and ordinary-traffic exclusion. Check failure reporting as well as successful requests: `recordAgentHit` catches writer failures and reports through its optional `onError` callback; the example does not wire this callback.
-5. Use `buildReport` on hit rows for reporting. The CLI accepts raw request fixtures, not a Supabase hit export; there is no production fetch/report command yet. Read database rows only through an authorized server-side connection or approved tooling.
-6. Deliver the report window, counts and interpretation. Review unknown user agents before changing `data/ai-agents.json`; a user-agent label is not proof of identity.
+No IP or query-string fields enter new hits. Paths and raw user agents remain, so do not claim all arbitrary input is free of personal data. Keep private hit exports untracked. Preserve nullable unknown-agent fields, request-ID deduplication and async writes. Reporting does not change registry labels.
 
-## Contracts and gaps
-
-Retain no IP or URL query-string fields. Paths and user-agent strings are retained; this is not a guarantee that arbitrary inputs contain no personal information. Keep fixtures synthetic. Preserve nullable agent fields, request-ID deduplication and asynchronous writes. The example constructs its writer at module load, so missing environment values can throw before request handling; verify configuration before deployment.
-
-The website's core listener claims are represented here. A reusable hosted reporting command, deployment diagnostics and failure-isolation tests would improve operation but are separate work. This measures visits, not model-answer visibility, citation share or recommendation frequency. Completion requires distinguishing fixture results from actual deployed traffic and showing evidence for any claim of live collection.
+A host integration and actual deployment verification are still required. The Next.js file is a template, not a compiled application. Tests cover classification, privacy fields, writes and mocked paginated reporting, not an actual Supabase deployment. This measures visits, not citation share or model recommendations.
